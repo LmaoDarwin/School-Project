@@ -26,11 +26,14 @@
   border: #009867 solid 1px;
   background-color: ghostwhite;
   color: #009867;
-  border-radius: 20px;
-  padding: 0 20px;
+  border-radius: 15px;
   width: 100%;
   height: 45px;
   font-size: 15px;
+  background-position: 10px;
+  background-size: 23px;
+  background-repeat: no-repeat;
+  padding-left: 40px;
 }
 .form input:focus {
   box-shadow: #009867 0 0 6px;
@@ -39,6 +42,7 @@
 .form input:hover {
   background-color: #009867;
   color: ghostwhite;
+  padding-left: 10px;
 }
 .form button {
   border: #009867 solid 2px;
@@ -76,5 +80,34 @@
 }
 .not{
     transition: opacity 0.3s ease-out;
-    opacity: 0.5;
+    opacity: 0.3;
+}
+.error{
+  margin: 5px 0 0 0;
+  color: red;
+  font-size: xx-small;
+}
+.show{
+  display: grid;
+  margin:  5px 0 0;
+  align-items: center;
+  justify-content: start;
+  grid-template-columns: auto auto;
+  font-size: smaller;
+}
+.show input{
+  accent-color: #009867;
+  height: 100%;
+}
+#email{
+  background-image: url(../public/mail.svg);
+ } 
+#password{
+  background-image: url(../public/pass.svg);
+}
+#user{
+  background-image: url(../public/user.svg);
+}
+#phone{
+  background-image: url(../public/phone.svg);
 }

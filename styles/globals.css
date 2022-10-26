@@ -8,7 +8,7 @@ a {
   color: inherit;
   text-decoration: none;
 }
-a:hover{
+a:hover {
   font-weight: bolder;
 }
 
@@ -22,5 +22,4 @@ button {
   color: #009867;
   box-sizing: border-box;
   font-family: Nova Flat, sans-serif;
-
 }

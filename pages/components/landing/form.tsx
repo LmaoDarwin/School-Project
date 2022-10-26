@@ -1,31 +1,143 @@
 import { NextPage } from 'next';
 import { useState } from 'react';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import Styles from '../../../styles/home.module.css';
 
+interface data {
+  username: string;
+  phone: string;
+  email: string;
+  password: string;
+}
+
 const Register = () => {
+  const [show, setShow] = useState(true);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<data>();
+
+  const onSubmit: SubmitHandler<data> = (data) => {
+    console.log(data);
+  };
+
   return (
-    <div className={Styles.form}>
+    <form className={Styles.form} onSubmit={handleSubmit(onSubmit)}>
       <label htmlFor='username'>Username</label>
-      <input type='text' placeholder='Username' />
+      <input
+        type='text'
+        id={Styles.user}
+        placeholder='Username'
+        autoComplete='off'
+        {...register('username', {
+          required: 'Username Required',
+          minLength: { value: 3, message: 'Must be 3 letter length or more' },
+        })}
+      />
+      {errors.username && (
+        <p className={Styles.error}>{errors.username.message}</p>
+      )}
       <label htmlFor='phone'>Phone Number</label>
-      <input type='text' placeholder='Phone' />
+      <input
+        type='tel'
+        id={Styles.phone}
+        placeholder='0812-3456-789'
+        autoComplete='off'
+        {...register('phone', {
+          required: 'Phone number required',
+          pattern: {
+            value: /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/g,
+            message: 'Format incorrect',
+          },
+        })}
+      />
+      {errors.phone && <p className={Styles.error}>{errors.phone.message}</p>}
       <label htmlFor='email'>Email</label>
-      <input type='email' placeholder='Yourmail@email.com' />
+      <input
+        type='text'
+        id={Styles.email}
+        placeholder='Yourmail@email.com'
+        autoComplete='off'
+        {...register('email', {
+          required: 'Email required',
+          pattern: {
+            value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g,
+            message: 'Format incorrect',
+          },
+        })}
+      />
+      {errors.email && <p className={Styles.error}>{errors.email.message}</p>}
       <label htmlFor='password'>Password</label>
-      <input type='password' placeholder='Password' />
+      <input
+        type={show ? 'password' : 'text'}
+        id={Styles.password}
+        placeholder='Password'
+        autoComplete='off'
+        {...register('password', {
+          required: 'Password required',
+          minLength: { value: 8, message: 'Must be 8 letter length or more' },
+        })}
+      />
+      {errors.password && (
+        <p className={Styles.error}>{errors.password.message}</p>
+      )}
+      <span className={Styles.show}>
+        <p>Show Password</p>
+        <input type='checkbox' onClick={() => setShow(!show)} />
+      </span>
       <button type='submit'>Register</button>
-    </div>
+    </form>
   );
 };
+
 const Login = () => {
+  const [show, setShow] = useState(true);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<data>();
+
+  const onSubmit: SubmitHandler<data> = (data) => {
+    console.log(data);
+  };
+
   return (
-    <div className={Styles.form}>
+    <form className={Styles.form} onSubmit={handleSubmit(onSubmit)}>
       <label htmlFor='email'>Email</label>
-      <input type='text' placeholder='Email' />
+      <input
+        type='text'
+        id={Styles.email}
+        placeholder='Yourmail@email.com'
+        autoComplete='off'
+        {...register('email', {
+          required: 'Email required',
+          pattern: {
+            value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g,
+            message: 'Format incorrect',
+          },
+        })}
+      />
+      {errors.email && <p className={Styles.error}>{errors.email.message}</p>}
       <label htmlFor='password'>Password</label>
-      <input type='password' placeholder='Password' />
+      <input
+        type={show ? 'password' : 'text'}
+        id={Styles.password}
+        placeholder='Password'
+        autoComplete='off'
+        {...register('password', { required: 'Password required' })}
+      />
+      {errors.password && (
+        <p className={Styles.error}>{errors.password.message}</p>
+      )}
+      <span className={Styles.show}>
+        <p>Show Password</p>
+        <input type='checkbox' onClick={() => setShow(!show)} />
+      </span>
       <button type='submit'>Login</button>
-    </div>
+    </form>
   );
 };
 
