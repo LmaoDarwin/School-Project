@@ -1,13 +1,17 @@
 import { NextPage } from 'next';
 import { useState } from 'react';
-import Styles from '../../styles/home.module.css';
+import Styles from '../../../styles/home.module.css';
 
 const Register = () => {
   return (
     <div className={Styles.form}>
+      <label htmlFor='username'>Username</label>
       <input type='text' placeholder='Username' />
+      <label htmlFor='phone'>Phone Number</label>
       <input type='text' placeholder='Phone' />
-      <input type='text' placeholder='Email' />
+      <label htmlFor='email'>Email</label>
+      <input type='email' placeholder='Yourmail@email.com' />
+      <label htmlFor='password'>Password</label>
       <input type='password' placeholder='Password' />
       <button type='submit'>Register</button>
     </div>
@@ -16,7 +20,9 @@ const Register = () => {
 const Login = () => {
   return (
     <div className={Styles.form}>
+      <label htmlFor='email'>Email</label>
       <input type='text' placeholder='Email' />
+      <label htmlFor='password'>Password</label>
       <input type='password' placeholder='Password' />
       <button type='submit'>Login</button>
     </div>

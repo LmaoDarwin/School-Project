@@ -8,6 +8,10 @@ a {
   color: inherit;
   text-decoration: none;
 }
+a:hover{
+  font-weight: bolder;
+}
+
 input,
 input:focus,
 button {

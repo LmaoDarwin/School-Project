@@ -1,7 +1,8 @@
 import { NextPage } from 'next';
-import Form from './components/form';
+import Form from './components/landing/form';
 import Styles from '../styles/home.module.css'
-import Navbar from './components/header';
+import Navbar from './components/landing/header';
+import Footer from './components/landing/footer';
 
 const Home: NextPage = () => {
   return (
@@ -9,7 +10,7 @@ const Home: NextPage = () => {
       <main className={Styles.main}>
       <Navbar/>
       <Form />
-      {/* Footer */}
+      <Footer/>
       </main>
       
       <section className={Styles.bg}>
