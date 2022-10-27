@@ -42,7 +42,7 @@
 .form input:hover {
   background-color: #009867;
   color: ghostwhite;
-  padding-left: 10px;
+  padding-left: 15px;
 }
 .form button {
   border: #009867 solid 2px;

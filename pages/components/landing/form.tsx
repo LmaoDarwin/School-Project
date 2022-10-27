@@ -2,6 +2,7 @@ import { NextPage } from 'next';
 import { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import Styles from '../../../styles/home.module.css';
+import RegApi from '../../api/auth/register';
 
 interface data {
   username: string;
@@ -12,6 +13,7 @@ interface data {
 
 const Register = () => {
   const [show, setShow] = useState(true);
+  const [user,setUser] = useState<{id:string,message:string}>()
 
   const {
     register,
@@ -19,8 +21,10 @@ const Register = () => {
     formState: { errors },
   } = useForm<data>();
 
-  const onSubmit: SubmitHandler<data> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<data> = async ({username,phone,email,password}) => {
+      const res = await RegApi(email,password,phone,username)
+      setUser(res)
+      // console.log(res)
   };
 
   return (
@@ -87,6 +91,7 @@ const Register = () => {
         <p>Show Password</p>
         <input type='checkbox' onClick={() => setShow(!show)} />
       </span>
+      {user?.id?<p>User Registered</p>:<p className={Styles.error}>{user?.message}</p>}
       <button type='submit'>Register</button>
     </form>
   );
