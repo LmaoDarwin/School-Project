@@ -2,6 +2,7 @@ import { NextPage } from 'next';
 import { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import Styles from '../../../styles/home.module.css';
+import LogApi from '../../api/auth/login';
 import RegApi from '../../api/auth/register';
 
 interface data {
@@ -13,7 +14,7 @@ interface data {
 
 const Register = () => {
   const [show, setShow] = useState(true);
-  const [user,setUser] = useState<{id:string,message:string}>()
+  const [msg,setMsg] = useState<{id:string,message:string}>()
 
   const {
     register,
@@ -23,7 +24,7 @@ const Register = () => {
 
   const onSubmit: SubmitHandler<data> = async ({username,phone,email,password}) => {
       const res = await RegApi(email,password,phone,username)
-      setUser(res)
+      setMsg(res)
       // console.log(res)
   };
 
@@ -91,7 +92,8 @@ const Register = () => {
         <p>Show Password</p>
         <input type='checkbox' onClick={() => setShow(!show)} />
       </span>
-      {user?.id?<p>User Registered</p>:<p className={Styles.error}>{user?.message}</p>}
+      {/* CHANGE TO USERNAME  */}
+      {msg?.id?<p>User Registered</p>:<p className={Styles.error}>{msg?.message}</p>}
       <button type='submit'>Register</button>
     </form>
   );
@@ -99,14 +101,18 @@ const Register = () => {
 
 const Login = () => {
   const [show, setShow] = useState(true);
+  const [msg,setMsg] = useState<{message:string,statusCode:number}>()
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<data>();
 
-  const onSubmit: SubmitHandler<data> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<data> = async ({email,password}) => {
+    const res = await LogApi(email,password)
+    setMsg(res)
+    // console.log(res)
   };
 
   return (
@@ -141,6 +147,7 @@ const Login = () => {
         <p>Show Password</p>
         <input type='checkbox' onClick={() => setShow(!show)} />
       </span>
+      {msg?.statusCode?<p className={Styles.error}>{msg?.message}</p>:<p>{msg?.message}</p>}
       <button type='submit'>Login</button>
     </form>
   );
